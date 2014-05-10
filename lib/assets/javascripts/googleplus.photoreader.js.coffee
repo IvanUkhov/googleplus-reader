@@ -4,7 +4,7 @@
 class PhotoReader extends GooglePlus.Reader
   append: (items) ->
     for item in items
-      continue unless item.hasOwnProperty('verb')
+      continue unless item.verb?
       continue unless item.verb is 'post'
 
       date = null
