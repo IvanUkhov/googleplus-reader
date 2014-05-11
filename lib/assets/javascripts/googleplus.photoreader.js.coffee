@@ -7,8 +7,7 @@ class PhotoReader extends GooglePlus.Reader
       continue unless item.verb?
       continue unless item.verb is 'post'
 
-      date = null
-      date = new Date item.published if item.published?
+      date = if item.published? then new Date(item.published) else null
 
       continue unless item.object?
 

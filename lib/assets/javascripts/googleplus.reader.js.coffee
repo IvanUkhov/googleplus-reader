@@ -18,6 +18,7 @@ class Reader
       nextPosition = Math.min nextPosition, @collection.length
       callback @collection.slice(@position, nextPosition) if callback?
       @position = nextPosition
+      return
 
     return
 
@@ -29,9 +30,13 @@ class Reader
       @append result.items
       @token = result.nextPageToken
       callback() if callback?
+      return
+
+    return
 
   append: (items) ->
     @collection.push item for item in items
+    return
 
 window.GooglePlus ||= {}
 window.GooglePlus.Reader = Reader
