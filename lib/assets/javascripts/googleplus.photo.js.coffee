@@ -20,9 +20,10 @@ class Photo
 
     element = $('<img/>')
 
-    element.on 'load', ->
-      element.off 'load'
-      callback element if callback?
+    if callback?
+      element.on 'load', ->
+        element.off 'load'
+        callback element
 
     element.attr src: url
 
