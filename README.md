@@ -1,4 +1,4 @@
-# GooglePlus Reader [![Gem Version](https://badge.fury.io/rb/googleplus-reader.svg)](http://badge.fury.io/rb/googleplus-reader) [![Build Status](https://travis-ci.org/IvanUkhov/googleplus-reader.svg?branch=master)](https://travis-ci.org/IvanUkhov/googleplus-reader)
+# GooglePlus Reader [![Gem Version](https://badge.fury.io/rb/googleplus-reader.svg)](http://badge.fury.io/rb/googleplus-reader)
 
 A [jQuery](http://jquery.com)-based library for reading public posts of a
 [Google+](https://plus.google.com) user. A life demo can be found
