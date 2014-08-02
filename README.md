@@ -7,9 +7,10 @@ A [jQuery](http://jquery.com)-based library for reading public posts of a
 
 ## Installation
 
-```bash
-$ echo "gem 'googleplus-reader'" >> Gemfile
-$ bundle install
+In `Gemfile`:
+
+```ruby
+gem 'googleplus-reader'
 ```
 
 The code is written in [CoffeeScript](http://coffeescript.org); however,
@@ -19,30 +20,30 @@ have CoffeeScript installed.
 ## Usage
 
 Here is an example in the context of a [Rails](http://rubyonrails.org)
-application. First, we need CoffeeScript as it was noted earlier:
+application.
 
-```bash
-$ echo "gem 'coffee-rails'" >> Gemfile
-$ bundle install
+In `Gemfile`:
+
+```ruby
+gem 'coffee-rails'
 ```
 
-In your `app/views/layouts/application.html.haml`:
+In `app/views/layouts/application.html.haml`:
 
 ```haml
-= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'
+= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 = javascript_include_tag :application
 ```
 
-In your `app/assets/javascripts/application.js.coffee`:
+In `app/assets/javascripts/application.js.coffee`:
 
 ```coffee
 //= require googleplus.reader
 
-reader = new GooglePlus.Reader \
-  id: 'user_id', key: 'api_key'
+reader = new GooglePlus.Reader(id: 'user_id', key: 'api_key')
 
-reader.next 5, (posts) ->
-  console.log post for post in posts
+reader.next(5).done (posts) ->
+  console.log(post) for post in posts
 ```
 
 Here `user_id` is the identifier of a Google+ user, and `api_key` is your
@@ -56,11 +57,10 @@ A more interesting example with photos that a user publishes:
 ```coffee
 //= require googleplus.photoreader
 
-reader = new GooglePlus.PhotoReader \
-  id: 'user_id', key: 'api_key'
+reader = new GooglePlus.PhotoReader(id: 'user_id', key: 'api_key')
 
-reader.next 5, (photos) ->
-  console.log photo.attributes for photo in photos
+reader.next(5).done (photos) ->
+  console.log(photo.attributes) for photo in photos
 ```
 
 `photo` is an instance of `GooglePlus.Photo`. Right now, `attributes`
@@ -70,17 +70,17 @@ has is `load`, which can be used as follows:
 
 ```coffee
 photo.load {}, (element) ->
-  $('#original').append element
+  $('#original').append(element)
 
 photo.load width: 300, (element) ->
-  $('#small').append element
+  $('#small').append(element)
 
 photo.load width: 1000, (element) ->
-  $('#large').append element
+  $('#large').append(element)
 
 element = photo.load width: 2000
-console.log element.attr('href')
-$('#huge').append element
+console.log(element.attr('href'))
+$('#huge').append(element)
 ```
 
 `load` constructs an URL referencing the photo of the desired size and

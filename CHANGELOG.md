@@ -1,3 +1,7 @@
+## GooglePlus Reader 0.0.4 (August 2, 2014)
+
+* Changed the API to rely on deferreds instead of callbacks.
+
 ## GooglePlus Reader 0.0.3 (August 1, 2014)
 
 * Fixed a cross-domain-related issue discovered in IE9.
