@@ -31,7 +31,7 @@ class Reader
           deferred.reject(details...)
           return
 
-    deferred
+    deferred.promise()
 
   load: ->
     url = "https://www.googleapis.com/plus/v1/people/#{@id}/activities/public?key=#{@key}"

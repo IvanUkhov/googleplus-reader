@@ -69,23 +69,19 @@ can be easily added via a pull request >:)~ The only method that `photo`
 has is `load`, which can be used as follows:
 
 ```coffee
-photo.load {}, (element) ->
+photo.load().done (element) ->
   $('#original').append(element)
 
-photo.load width: 300, (element) ->
+photo.load(width: 300).done (element) ->
   $('#small').append(element)
 
-photo.load width: 1000, (element) ->
+photo.load(width: 1000).done (element) ->
   $('#large').append(element)
-
-element = photo.load width: 2000
-console.log(element.attr('href'))
-$('#huge').append(element)
 ```
 
-`load` constructs an URL referencing the photo of the desired size and
-preloads it using an `img` element, which it returns right away and also
-passes to the callback function once the photo has been loaded.
+`load` constructs an URL referencing the photo of the desired size and preloads
+it using an `img` element, which is passes to `done` once the photo has been
+loaded.
 
 ## Contributing
 

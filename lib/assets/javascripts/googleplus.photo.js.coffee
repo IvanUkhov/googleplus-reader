@@ -2,8 +2,8 @@ class Photo
   constructor: (@attributes) ->
     @$ = jQuery
 
-  load: (options, callback) ->
-    options ||= {}
+  load: (options = {}) ->
+    deferred = @$.Deferred()
 
     width = options.width if options.width?
 
@@ -21,14 +21,20 @@ class Photo
 
     element = @$('<img/>')
 
-    if callback?
-      element.on 'load', ->
-        element.off('load')
-        callback(element)
+    element
+      .on 'load', ->
+        element.off('load error')
+        deferred.resolve(element)
+        return
+
+      .on 'error', (details...) ->
+        element.off('load error')
+        deferred.reject(details...)
+        return
 
     element.attr(src: url)
 
-    element
+    deferred.promise()
 
 window.GooglePlus ||= {}
 window.GooglePlus.Photo = Photo
