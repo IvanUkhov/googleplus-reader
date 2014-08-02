@@ -1,5 +1,6 @@
 class Photo
   constructor: (@attributes) ->
+    @$ = jQuery
 
   load: (options, callback) ->
     options ||= {}
@@ -18,7 +19,7 @@ class Photo
     else
       url = @attributes.url
 
-    element = $('<img/>')
+    element = @$('<img/>')
 
     if callback?
       element.on 'load', ->

@@ -1,38 +1,46 @@
 class Reader
   constructor: (options) ->
+    @$ = jQuery
+
     @id = options.id
     @key = options.key
     @token = null
     @collection = []
     @position = 0
 
-  next: (count, callback) ->
+  next: (count) ->
+    deferred = @$.Deferred()
+
     nextPosition = @position + count
 
     if nextPosition <= @collection.length
-      callback @collection.slice(@position, nextPosition) if callback?
+      elements = @collection.slice(@position, nextPosition)
       @position = nextPosition
-      return
+      deferred.resolve(elements)
 
-    @load =>
-      nextPosition = Math.min(nextPosition, @collection.length)
-      callback(@collection.slice(@position, nextPosition)) if callback?
-      @position = nextPosition
-      return
+    else
+      @load()
+        .done =>
+          nextPosition = Math.min(nextPosition, @collection.length)
+          elements = @collection.slice(@position, nextPosition)
+          @position = nextPosition
+          deferred.resolve(elements)
+          return
 
-    return
+        .fail (details...) =>
+          deferred.reject(details...)
+          return
 
-  load: (callback) ->
+    deferred
+
+  load: ->
     url = "https://www.googleapis.com/plus/v1/people/#{@id}/activities/public?key=#{@key}"
     url = "#{url}&pageToken=#{@token}" if @token
 
-    jQuery.ajax(url: url, crossDomain: true, dataType: 'jsonp').done (result) =>
+    @$.ajax(url: url, crossDomain: true, dataType: 'jsonp').done (result) =>
       @append(result.items)
       @token = result.nextPageToken
-      callback() if callback?
       return
-
-    return
 
   append: (items) ->
     @collection.push(item) for item in items
