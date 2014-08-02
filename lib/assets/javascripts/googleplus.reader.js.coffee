@@ -15,19 +15,19 @@ class Reader
       return
 
     @load =>
-      nextPosition = Math.min nextPosition, @collection.length
-      callback @collection.slice(@position, nextPosition) if callback?
+      nextPosition = Math.min(nextPosition, @collection.length)
+      callback(@collection.slice(@position, nextPosition)) if callback?
       @position = nextPosition
       return
 
     return
 
   load: (callback) ->
-    url = "https://www.googleapis.com/plus/v1/people/#{ @id }/activities/public?key=#{ @key }"
-    url = "#{ url }&pageToken=#{ @token }" if @token
+    url = "https://www.googleapis.com/plus/v1/people/#{@id}/activities/public?key=#{@key}"
+    url = "#{url}&pageToken=#{@token}" if @token
 
     jQuery.ajax(url: url, crossDomain: true, dataType: 'jsonp').done (result) =>
-      @append result.items
+      @append(result.items)
       @token = result.nextPageToken
       callback() if callback?
       return
@@ -35,7 +35,7 @@ class Reader
     return
 
   append: (items) ->
-    @collection.push item for item in items
+    @collection.push(item) for item in items
     return
 
 window.GooglePlus ||= {}
