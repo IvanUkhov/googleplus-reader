@@ -1,40 +1,37 @@
-class Photo
-  constructor: (@attributes) ->
-    @$ = jQuery
+define 'googleplus.photo', ['jquery'], ($) ->
+  class
+    constructor: (@attributes) ->
 
-  load: (options = {}) ->
-    deferred = @$.Deferred()
+    load: (options = {}) ->
+      deferred = $.Deferred()
 
-    width = options.width if options.width?
+      width = options.width if options.width?
 
-    if @attributes.width?
+      if @attributes.width?
+        if width?
+          width = Math.min(width, @attributes.width)
+        else
+          width = @attributes.width
+
       if width?
-        width = Math.min(width, @attributes.width)
+        width = Math.round(width)
+        url = @attributes.url.replace(/w\d+-h\d+(-p)?/, "w#{width}")
       else
-        width = @attributes.width
+        url = @attributes.url
 
-    if width?
-      width = Math.round(width)
-      url = @attributes.url.replace(/w\d+-h\d+(-p)?/, "w#{width}")
-    else
-      url = @attributes.url
+      element = $('<img/>')
 
-    element = @$('<img/>')
+      element
+        .on 'load', ->
+          element.off('load error')
+          deferred.resolve(element)
+          return
 
-    element
-      .on 'load', ->
-        element.off('load error')
-        deferred.resolve(element)
-        return
+        .on 'error', (details...) ->
+          element.off('load error')
+          deferred.reject(details...)
+          return
 
-      .on 'error', (details...) ->
-        element.off('load error')
-        deferred.reject(details...)
-        return
+      element.attr(src: url)
 
-    element.attr(src: url)
-
-    deferred.promise()
-
-window.GooglePlus ||= {}
-window.GooglePlus.Photo = Photo
+      deferred.promise()
