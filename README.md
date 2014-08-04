@@ -1,48 +1,61 @@
 # GooglePlus Reader [![Gem Version](https://badge.fury.io/rb/googleplus-reader.svg)](http://badge.fury.io/rb/googleplus-reader)
 
-A [jQuery](http://jquery.com)-based library for reading public posts of a
-[Google+](https://plus.google.com) user. A life demo can be found
-[here](http://ivanukhov.com) and its source code
-[here](https://github.com/IvanUkhov/photography). Best enjoyed responsibly.
+A library for reading public posts of a [Google+](https://plus.google.com)
+user. A life demo can be found [here](http://photography.ivanukhov.com) and
+its source code [here](https://github.com/IvanUkhov/photography). Best enjoyed
+responsibly.
 
 ## Installation
 
-```bash
-$ echo "gem 'googleplus-reader'" >> Gemfile
-$ bundle install
+In `Gemfile`:
+
+```ruby
+gem 'googleplus-reader'
 ```
 
-The code is written in [CoffeeScript](http://coffeescript.org); however,
-any dependencies in this regard are purposely omitted. So make sure you
-have CoffeeScript installed.
+In terminal:
+
+```bash
+$ bundle
+```
+
+The code is written in [CoffeeScript](http://coffeescript.org) and relies on
+[jQuery](http://jquery.com); however, all dependencies in this regard are
+purposely omitted. So make sure you have a proper setup (see below).
 
 ## Usage
 
 Here is an example in the context of a [Rails](http://rubyonrails.org)
-application. First, we need CoffeeScript as it was noted earlier:
+application.
 
-```bash
-$ echo "gem 'coffee-rails'" >> Gemfile
-$ bundle install
+In `Gemfile`:
+
+```ruby
+gem 'coffee-rails'
 ```
 
-In your `app/views/layouts/application.html.haml`:
+In terminal:
+
+```bash
+$ bundle
+```
+
+In `app/views/layouts/application.html.haml`:
 
 ```haml
-= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js'
+= javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 = javascript_include_tag :application
 ```
 
-In your `app/assets/javascripts/application.js.coffee`:
+In `app/assets/javascripts/application.js.coffee`:
 
 ```coffee
 //= require googleplus.reader
 
-reader = new GooglePlus.Reader \
-  id: 'user_id', key: 'api_key'
+reader = new GooglePlus.Reader(id: 'user_id', key: 'api_key')
 
-reader.next 5, (posts) ->
-  console.log post for post in posts
+reader.next(5).done (posts) ->
+  console.log(post) for post in posts
 ```
 
 Here `user_id` is the identifier of a Google+ user, and `api_key` is your
@@ -54,13 +67,14 @@ needed for your application.
 A more interesting example with photos that a user publishes:
 
 ```coffee
+//= require googleplus.photo
+//= require googleplus.reader
 //= require googleplus.photoreader
 
-reader = new GooglePlus.PhotoReader \
-  id: 'user_id', key: 'api_key'
+reader = new GooglePlus.PhotoReader(id: 'user_id', key: 'api_key')
 
-reader.next 5, (photos) ->
-  console.log photo.attributes for photo in photos
+reader.next(5).done (photos) ->
+  console.log(photo.attributes) for photo in photos
 ```
 
 `photo` is an instance of `GooglePlus.Photo`. Right now, `attributes`
@@ -69,23 +83,19 @@ can be easily added via a pull request >:)~ The only method that `photo`
 has is `load`, which can be used as follows:
 
 ```coffee
-photo.load {}, (element) ->
-  $('#original').append element
+photo.load().done (element) ->
+  $('#original').append(element)
 
-photo.load width: 300, (element) ->
-  $('#small').append element
+photo.load(width: 300).done (element) ->
+  $('#small').append(element)
 
-photo.load width: 1000, (element) ->
-  $('#large').append element
-
-element = photo.load width: 2000
-console.log element.attr('href')
-$('#huge').append element
+photo.load(width: 1000).done (element) ->
+  $('#large').append(element)
 ```
 
-`load` constructs an URL referencing the photo of the desired size and
-preloads it using an `img` element, which it returns right away and also
-passes to the callback function once the photo has been loaded.
+`load` constructs an URL referencing the photo of the desired size and preloads
+it using an `img` element, which is passes to `done` once the photo has been
+loaded.
 
 ## Contributing
 

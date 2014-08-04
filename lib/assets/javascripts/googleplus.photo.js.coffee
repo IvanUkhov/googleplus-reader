@@ -1,33 +1,42 @@
-class Photo
-  constructor: (@attributes) ->
+unless typeof define is 'function' and define.amd
+  module = @GooglePlus ||= {}
+  @define = (name, deps, callback) ->
+    module.Photo = callback(jQuery)
 
-  load: (options, callback) ->
-    options ||= {}
+define 'googleplus.photo', ['jquery'], ($) ->
+  class
+    constructor: (@attributes) ->
 
-    width = options.width if options.width?
+    load: (options = {}) ->
+      deferred = $.Deferred()
 
-    if @attributes.width?
+      width = options.width if options.width?
+
+      if @attributes.width?
+        if width?
+          width = Math.min(width, @attributes.width)
+        else
+          width = @attributes.width
+
       if width?
-        width = Math.min width, @attributes.width
+        width = Math.round(width)
+        url = @attributes.url.replace(/w\d+-h\d+(-p)?/, "w#{width}")
       else
-        width = @attributes.width
+        url = @attributes.url
 
-    if width?
-      width = Math.round width
-      url = @attributes.url.replace /w\d+-h\d+(-p)?/, "w#{ width }"
-    else
-      url = @attributes.url
+      element = $('<img/>')
 
-    element = $('<img/>')
+      element
+        .on 'load', ->
+          element.off('load error')
+          deferred.resolve(element)
+          return
 
-    if callback?
-      element.on 'load', ->
-        element.off 'load'
-        callback element
+        .on 'error', (details...) ->
+          element.off('load error')
+          deferred.reject(details...)
+          return
 
-    element.attr src: url
+      element.attr(src: url)
 
-    element
-
-window.GooglePlus ||= {}
-window.GooglePlus.Photo = Photo
+      deferred.promise()
