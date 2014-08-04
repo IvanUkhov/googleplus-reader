@@ -1,8 +1,8 @@
 # GooglePlus Reader [![Gem Version](https://badge.fury.io/rb/googleplus-reader.svg)](http://badge.fury.io/rb/googleplus-reader)
 
 A library for reading public posts of a [Google+](https://plus.google.com)
-user. A life demo can be found [here](http://photography.ivanukhov.com) and
-its source code [here](https://github.com/IvanUkhov/photography). Best enjoyed
+user. A life demo can be found [here](http://photography.ivanukhov.com) and its
+source code [here](https://github.com/IvanUkhov/photography). Best enjoyed
 responsibly.
 
 ## Installation
@@ -59,10 +59,9 @@ reader.next(5).done (posts) ->
 ```
 
 Here `user_id` is the identifier of a Google+ user, and `api_key` is your
-[Google+ API key](https://developers.google.com/+/api/oauth).
-`post` is exactly what Google has to say about each post without any
-additional preprocessing. You might want to inspect it and fetch what is
-needed for your application.
+[Google+ API key](https://developers.google.com/+/api/oauth). `post` is exactly
+what Google has to say about each post without any additional preprocessing.
+You might want to inspect it and fetch what is needed for your application.
 
 A more interesting example with photos that a user publishes:
 
@@ -77,10 +76,10 @@ reader.next(5).done (photos) ->
   console.log(photo.attributes) for photo in photos
 ```
 
-`photo` is an instance of `GooglePlus.Photo`. Right now, `attributes`
-contain only `url`, `date`, and `width` (if available), but other parameters
-can be easily added via a pull request >:)~ The only method that `photo`
-has is `load`, which can be used as follows:
+`photo` is an instance of `GooglePlus.Photo`. Right now, `attributes` contains
+only `url`, `date`, and `width` (if available), but other parameters can be
+easily added via a pull request >:)~ The only method that `photo` has is
+`load`, which can be used as follows:
 
 ```coffee
 photo.load().done (element) ->
