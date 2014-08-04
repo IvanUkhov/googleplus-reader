@@ -1,3 +1,8 @@
+unless typeof define is 'function' and define.amd
+  module = @GooglePlus ||= {}
+  @define = (name, deps, callback) ->
+    module.Reader = callback(jQuery)
+
 define 'googleplus.reader', ['jquery'], ($) ->
   class
     constructor: (options) ->
