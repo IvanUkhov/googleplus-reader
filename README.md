@@ -1,9 +1,9 @@
 # GooglePlus Reader [![Gem Version](https://badge.fury.io/rb/googleplus-reader.svg)](http://badge.fury.io/rb/googleplus-reader)
 
-A [jQuery](http://jquery.com)-based library for reading public posts of a
-[Google+](https://plus.google.com) user. A life demo can be found
-[here](http://ivanukhov.com) and its source code
-[here](https://github.com/IvanUkhov/photography). Best enjoyed responsibly.
+A library for reading public posts of a [Google+](https://plus.google.com)
+user. A life demo can be found [here](http://photography.ivanukhov.com) and
+its source code [here](https://github.com/IvanUkhov/photography). Best enjoyed
+responsibly.
 
 ## Installation
 
@@ -13,9 +13,15 @@ In `Gemfile`:
 gem 'googleplus-reader'
 ```
 
-The code is written in [CoffeeScript](http://coffeescript.org); however,
-any dependencies in this regard are purposely omitted. So make sure you
-have CoffeeScript installed.
+In terminal:
+
+```bash
+$ bundle
+```
+
+The code is written in [CoffeeScript](http://coffeescript.org) and relies on
+[jQuery](http://jquery.com); however, all dependencies in this regard are
+purposely omitted. So make sure you have a proper setup (see below).
 
 ## Usage
 
@@ -26,6 +32,12 @@ In `Gemfile`:
 
 ```ruby
 gem 'coffee-rails'
+```
+
+In terminal:
+
+```bash
+$ bundle
 ```
 
 In `app/views/layouts/application.html.haml`:
@@ -55,6 +67,8 @@ needed for your application.
 A more interesting example with photos that a user publishes:
 
 ```coffee
+//= require googleplus.photo
+//= require googleplus.reader
 //= require googleplus.photoreader
 
 reader = new GooglePlus.PhotoReader(id: 'user_id', key: 'api_key')
