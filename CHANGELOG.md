@@ -1,3 +1,7 @@
+## GooglePlus Reader 0.0.6 (December 5, 2014)
+
+* Added `find` for fetching only one activity.
+
 ## GooglePlus Reader 0.0.5 (August 4, 2014)
 
 * Added support for [RequireJS](http://requirejs.org/).
