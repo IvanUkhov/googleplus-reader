@@ -2,8 +2,8 @@
 
 The library provides an interface for reading public activities of a
 [Google+](https://plus.google.com) user. A life demo can be found
-[here](http://photography.ivanukhov.com) and its source code
-[here](https://github.com/IvanUkhov/photography). Best enjoyed responsibly.
+[here](http://photos.ivanukhov.com) and its source code
+[here](https://github.com/IvanUkhov/photos). Best enjoyed responsibly.
 
 ## Installation
 
