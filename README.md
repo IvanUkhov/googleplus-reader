@@ -1,9 +1,9 @@
 # GooglePlus Reader [![Gem Version](https://badge.fury.io/rb/googleplus-reader.svg)](http://badge.fury.io/rb/googleplus-reader)
 
-A library for reading public posts of a [Google+](https://plus.google.com)
-user. A life demo can be found [here](http://photography.ivanukhov.com) and its
-source code [here](https://github.com/IvanUkhov/photography). Best enjoyed
-responsibly.
+The library provides an interface for reading public activities of a
+[Google+](https://plus.google.com) user. A life demo can be found
+[here](http://photography.ivanukhov.com) and its source code
+[here](https://github.com/IvanUkhov/photography). Best enjoyed responsibly.
 
 ## Installation
 
