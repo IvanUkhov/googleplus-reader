@@ -1,3 +1,7 @@
+## GooglePlus Reader 0.0.7 (December 5, 2014)
+
+* Added `activity_id` to the attributes of a photo.
+
 ## GooglePlus Reader 0.0.6 (December 5, 2014)
 
 * Added `find` for fetching only one activity.
