@@ -28,11 +28,13 @@ define 'googleplus.photoreader', ['googleplus.reader', 'googleplus.photo'], (Rea
 
             if attachment.fullImage?
               collection.push new Photo
+                activity_id: item.id,
                 url: attachment.image.url,
                 width: attachment.fullImage.width,
                 date: date
             else
               collection.push new Photo
+                activity_id: item.id,
                 url: attachment.image.url,
                 width: null,
                 date: date
@@ -44,6 +46,7 @@ define 'googleplus.photoreader', ['googleplus.reader', 'googleplus.photo'], (Rea
               continue unless thumbnail.image?
 
               collection.push new Photo
+                activity_id: item.id,
                 url: thumbnail.image.url,
                 width: null,
                 date: date
