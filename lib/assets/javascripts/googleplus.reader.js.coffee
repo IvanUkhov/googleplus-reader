@@ -8,9 +8,27 @@ define 'googleplus.reader', ['jquery'], ($) ->
     constructor: (options) ->
       @id = options.id
       @key = options.key
+      @reset()
+
+    reset: ->
       @token = null
       @collection = []
       @position = 0
+      return
+
+    find: (id) ->
+      deferred = $.Deferred()
+
+      @get(id)
+        .done (result) =>
+          deferred.resolve(@process([result]))
+          return
+
+        .fail (details...) =>
+          deferred.reject(details...)
+          return
+
+      deferred.promise()
 
     next: (count) ->
       deferred = $.Deferred()
@@ -23,8 +41,9 @@ define 'googleplus.reader', ['jquery'], ($) ->
         deferred.resolve(elements)
 
       else
-        @load()
-          .done =>
+        @list()
+          .done (result) =>
+            @collection.push(item) for item in @process(result.items)
             nextPosition = Math.min(nextPosition, @collection.length)
             elements = @collection.slice(@position, nextPosition)
             @position = nextPosition
@@ -37,15 +56,16 @@ define 'googleplus.reader', ['jquery'], ($) ->
 
       deferred.promise()
 
-    load: ->
+    get: (id) ->
+      url = "https://www.googleapis.com/plus/v1/activities/#{id}?key=#{@key}"
+      $.ajax(url: url, crossDomain: true, dataType: 'jsonp')
+
+    list: ->
       url = "https://www.googleapis.com/plus/v1/people/#{@id}/activities/public?key=#{@key}"
       url = "#{url}&pageToken=#{@token}" if @token
-
       $.ajax(url: url, crossDomain: true, dataType: 'jsonp').done (result) =>
-        @append(result.items)
         @token = result.nextPageToken
         return
 
-    append: (items) ->
-      @collection.push(item) for item in items
-      return
+    process: (items) ->
+      items

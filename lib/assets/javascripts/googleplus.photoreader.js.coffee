@@ -5,7 +5,9 @@ unless typeof define is 'function' and define.amd
 
 define 'googleplus.photoreader', ['googleplus.reader', 'googleplus.photo'], (Reader, Photo) ->
   class extends Reader
-    append: (items) ->
+    process: (items) ->
+      collection = []
+
       for item in items
         continue unless item.verb?
         continue unless item.verb is 'post'
@@ -25,12 +27,12 @@ define 'googleplus.photoreader', ['googleplus.reader', 'googleplus.photo'], (Rea
             continue unless attachment.image?
 
             if attachment.fullImage?
-              @collection.push new Photo
+              collection.push new Photo
                 url: attachment.image.url,
                 width: attachment.fullImage.width,
                 date: date
             else
-              @collection.push new Photo
+              collection.push new Photo
                 url: attachment.image.url,
                 width: null,
                 date: date
@@ -41,9 +43,9 @@ define 'googleplus.photoreader', ['googleplus.reader', 'googleplus.photo'], (Rea
             for thumbnail in attachment.thumbnails
               continue unless thumbnail.image?
 
-              @collection.push new Photo
+              collection.push new Photo
                 url: thumbnail.image.url,
                 width: null,
                 date: date
 
-      return
+      collection
