@@ -1,8 +1,8 @@
-# GooglePlus Reader [![Gem Version](https://badge.fury.io/rb/googleplus-reader.svg)](http://badge.fury.io/rb/googleplus-reader)
+# GooglePlus Reader [![Gem Version][fury-svg]][fury-url]
 
 The library provides an interface for reading public activities of a
 [Google+](https://plus.google.com) user. A life demo can be found
-[here](http://photos.ivanukhov.com) and its source code
+[here](https://photos.ivanukhov.com) and its source code
 [here](https://github.com/IvanUkhov/photos). Best enjoyed responsibly.
 
 ## Installation
@@ -60,8 +60,8 @@ reader.next(5).done (posts) ->
 
 Here `user_id` is the identifier of a Google+ user, and `api_key` is your
 [Google+ API key](https://developers.google.com/+/api/oauth). `post` is exactly
-what Google has to say about each post without any additional preprocessing.
-You might want to inspect it and fetch what is needed for your application.
+what Google has to say about each post without any additional preprocessing. You
+might want to inspect it and fetch what is needed for your application.
 
 A more interesting example with photos that a user publishes:
 
@@ -78,8 +78,8 @@ reader.next(5).done (photos) ->
 
 `photo` is an instance of `GooglePlus.Photo`. Right now, `attributes` contains
 only `url`, `date`, and `width` (if available), but other parameters can be
-easily added via a pull request >:)~ The only method that `photo` has is
-`load`, which can be used as follows:
+easily added via a pull request >:)~ The only method that `photo` has is `load`,
+which can be used as follows:
 
 ```coffee
 photo.load().done (element) ->
@@ -101,3 +101,6 @@ loaded.
 1. Fork the project.
 2. Implement your idea.
 3. Create a pull request.
+
+[fury-svg]: https://badge.fury.io/rb/googleplus-reader.svg
+[fury-url]: http://badge.fury.io/rb/googleplus-reader
