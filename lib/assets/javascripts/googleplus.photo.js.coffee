@@ -27,11 +27,9 @@ define 'googleplus.photo', ['jquery'], ($) ->
       deferred.promise()
 
     url: (options = {}) ->
-      if options.width? and @attributes.preview_url?
-        width = options.width
-        width = Math.min(width, @attributes.width) if @attributes.width?
-        width = Math.round(width)
-        @attributes.preview_url.replace(/w\d+-h\d+(-p)?/, "w#{width}")
-
+      width = options.width or @attributes.width
+      width = Math.min(width, @attributes.width) if @attributes.width?
+      if width?
+        @attributes.url.replace(/w\d+-h\d+(-p)?/, "w#{Math.round(width)}")
       else
-        @attributes.url or @attributes.preview_url
+        @attributes.url

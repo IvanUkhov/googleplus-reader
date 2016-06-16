@@ -30,16 +30,15 @@ define 'googleplus.photoreader', ['googleplus.reader', 'googleplus.photo'], (Rea
               collection.push new Photo
                 activity_id: item.id,
                 date: date,
-                url: attachment.fullImage.url,
+                url: attachment.image.url,
                 width: attachment.fullImage.width,
                 height: attachment.fullImage.height,
-                preview_url: attachment.image.url,
 
             else
               collection.push new Photo
                 activity_id: item.id,
                 date: date,
-                preview_url: attachment.image.url,
+                url: attachment.image.url,
 
           else if attachment.objectType is 'album'
             continue unless attachment.thumbnails?
@@ -50,6 +49,6 @@ define 'googleplus.photoreader', ['googleplus.reader', 'googleplus.photo'], (Rea
               collection.push new Photo
                 activity_id: item.id,
                 date: date,
-                preview_url: thumbnail.image.url,
+                url: thumbnail.image.url,
 
       collection

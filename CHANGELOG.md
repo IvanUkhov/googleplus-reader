@@ -1,3 +1,7 @@
+## GooglePlus Reader 0.2.0 (June 16, 2016)
+
+* Reverted the changed of version 0.1.0.
+
 ## GooglePlus Reader 0.1.0 (June 16, 2016)
 
 * Changed the `url` attribute of a photo to contain the URL of the original
