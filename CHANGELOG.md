@@ -1,3 +1,11 @@
+## GooglePlus Reader 0.1.0 (June 16, 2016)
+
+* Changed the `url` attribute of a photo to contain the URL of the original
+  image instead of the URL of the preview image, which is now in `preview_url`.
+
+* Changed the `load` method of a photo to load the original image if no size
+  requirement has been specified.
+
 ## GooglePlus Reader 0.0.7 (December 5, 2014)
 
 * Added `activity_id` to the attributes of a photo.
