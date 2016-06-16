@@ -29,15 +29,17 @@ define 'googleplus.photoreader', ['googleplus.reader', 'googleplus.photo'], (Rea
             if attachment.fullImage?
               collection.push new Photo
                 activity_id: item.id,
-                url: attachment.image.url,
+                date: date,
+                url: attachment.fullImage.url,
                 width: attachment.fullImage.width,
-                date: date
+                height: attachment.fullImage.height,
+                preview_url: attachment.image.url,
+
             else
               collection.push new Photo
                 activity_id: item.id,
-                url: attachment.image.url,
-                width: null,
-                date: date
+                date: date,
+                preview_url: attachment.image.url,
 
           else if attachment.objectType is 'album'
             continue unless attachment.thumbnails?
@@ -47,8 +49,7 @@ define 'googleplus.photoreader', ['googleplus.reader', 'googleplus.photo'], (Rea
 
               collection.push new Photo
                 activity_id: item.id,
-                url: thumbnail.image.url,
-                width: null,
-                date: date
+                date: date,
+                preview_url: thumbnail.image.url,
 
       collection

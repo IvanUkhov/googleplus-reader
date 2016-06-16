@@ -10,22 +10,7 @@ define 'googleplus.photo', ['jquery'], ($) ->
     load: (options = {}) ->
       deferred = $.Deferred()
 
-      width = options.width if options.width?
-
-      if @attributes.width?
-        if width?
-          width = Math.min(width, @attributes.width)
-        else
-          width = @attributes.width
-
-      if width?
-        width = Math.round(width)
-        url = @attributes.url.replace(/w\d+-h\d+(-p)?/, "w#{width}")
-      else
-        url = @attributes.url
-
       element = $('<img/>')
-
       element
         .on 'load', ->
           element.off('load error')
@@ -37,6 +22,16 @@ define 'googleplus.photo', ['jquery'], ($) ->
           deferred.reject(details...)
           return
 
-      element.attr(src: url)
+      element.attr(src: @url(options))
 
       deferred.promise()
+
+    url: (options = {}) ->
+      if options.width? and @attributes.preview_url?
+        width = options.width
+        width = Math.min(width, @attributes.width) if @attributes.width?
+        width = Math.round(width)
+        @attributes.preview_url.replace(/w\d+-h\d+(-p)?/, "w#{width}")
+
+      else
+        @attributes.url or @attributes.preview_url
